@@ -23,19 +23,13 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "electron-start": "tsc ./public/main.ts && concurrently \"cross-env BROWSER=none yarn run start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron-build": "npm run react-build && electron-builder",
-    "release": "npm run react-build && electron-builder --publish=always",
+    "electron-start": "tsc ./public/electron.ts && concurrently \"cross-env BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-build": "yarn build && electron-builder",
+    "release": "yarn build && electron-builder --publish=always",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-renderer": "cross-env BROWSER=none npm run start",
-    "start-main": "electron .",
-    "compile-main": "tsc ./public/electron.ts",
-    "start-main-after-renderer": "wait-on http://localhost:3000 && npm run start-main",
-    "dev": "concurrently -n renderer, main 'npm:start-renderer' 'npm:start-main-after-renderer'",
-    "dist": "npm run build && electron-builder --dir",
     "predist": "npm run compile-main"
   },
   "eslintConfig": {
